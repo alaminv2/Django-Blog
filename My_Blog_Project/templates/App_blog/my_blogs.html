@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load custom_filter %}
+{% block title_block %} {{user}} Blogs {% endblock %}
+
+{% block body_block %}
+  {% for blog in user.post_author.all %}
+    <div class="row" style="padding-top:20px">
+      <div class="col-sm-6">
+        <img src="/media/{{blog.blog_image}}" alt="{{blog.blog_title}}" width=100%>
+      </div>
+      <div class="col-sm-6">
+        <h4>{{blog.blog_title}}</h4>
+        <i><h6> {{blog.publish_date}} | {{blog.like_blog.count}} Likes | {{blog.comment_blog.count}} Comments
+         |  <a href="{% url 'App_blog:edit_blog' pk=blog.pk %}" class="btn btn-info btn-sm">Edit</a></h6></i>
+        <br>
+        <p>{{blog.blog_content | range_blog | linebreaks}}</p>
+        <i><a href="{% url 'App_blog:blog_details' slug=blog.slug %}">Read More</a></i>
+      </div>
+
+    </div>
+    <hr style="border:1px solid green">
+  {% endfor %}
+{% endblock %}

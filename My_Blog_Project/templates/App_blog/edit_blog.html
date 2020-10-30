@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} Edit Blog {% endblock %}
+
+{% block body_block %}
+{% if blog.author == user %}
+  <form enctype="multipart/form-data" method="POST">
+    {{form|crispy}}
+    {% csrf_token %}
+    <button type="submit"class="btn btn-success btn-xs">Update</button>
+  </form>
+{% else %}
+<div class="alert alert-danger">
+  You Are Not Allowed To See This. Error 404.
+</div>
+{% endif %}
+{% endblock %}
